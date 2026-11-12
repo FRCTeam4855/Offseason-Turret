@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OperatorConstants;
 
@@ -35,6 +37,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return new SequentialCommandGroup(
+      new InstantCommand(() -> m_turretSubsystem.setAngle(90)),
+      new WaitCommand(1.5),
+      new InstantCommand(() -> m_turretSubsystem.setAngle(-90)),
+      new WaitCommand(1.5),
+      new InstantCommand(() -> m_turretSubsystem.setAngle(0))
+    );
   }
 }
