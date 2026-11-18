@@ -39,8 +39,9 @@ public class TurretSubsystem extends SubsystemBase {
   // Constants
   private final DCMotor dcMotor = DCMotor.getNEO(1);
   private final int canID = 17;
-  public final double gearRatio = 10.4166666667;
-  private final double kP = 0.1;
+  public final double gearRatio = 6.25;
+  private final double kP = .05;
+  //.05
   private final double kI = 0;
   private final double kD = 0;
   private final double kS = 0;
@@ -231,7 +232,7 @@ public class TurretSubsystem extends SubsystemBase {
    * @param angleDegrees The target angle in degrees
    */
   public void setAngle(double angleDegrees) {
-    setAngle(angleDegrees * gearRatio, 0);
+    setAngle(angleDegrees, 0);
   }
 
   /**
@@ -321,7 +322,7 @@ public class TurretSubsystem extends SubsystemBase {
     })
         .until(() -> {
           double currentAngle = Units.radiansToDegrees(getPositionRadians());
-          return Math.abs(angleDegrees - currentAngle) < 2.0; // 2 degree tolerance
+          return Math.abs(angleDegrees - currentAngle) < 1; // 1 degree tolerance
         })
         .finallyDo(interrupted -> setVelocity(0));
   }

@@ -28,21 +28,23 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    new JoystickButton(m_controller, 1).onTrue(new InstantCommand(() -> m_turretSubsystem.setAngle(90)));
-    new JoystickButton(m_controller, 2).onTrue(new InstantCommand(() -> m_turretSubsystem.setAngle(180)));
-    new JoystickButton(m_controller, 3).onTrue(new InstantCommand(() -> m_turretSubsystem.setAngle(-90)));
-    new JoystickButton(m_controller, 4).onTrue(new InstantCommand(() -> m_turretSubsystem.setAngle(-180)));
-    new JoystickButton(m_controller, 5).onTrue(new InstantCommand(() -> m_turretSubsystem.setAngle(0)));
-
+    new JoystickButton(m_controller, 1).onTrue(m_turretSubsystem.moveToAngleCommand(90));
+    new JoystickButton(m_controller, 2).onTrue(m_turretSubsystem.moveToAngleCommand(180));
+    new JoystickButton(m_controller, 3).onTrue(m_turretSubsystem.moveToAngleCommand(-90));
+    new JoystickButton(m_controller, 4).onTrue(m_turretSubsystem.moveToAngleCommand(-180));
+    new JoystickButton(m_controller, 5).onTrue(m_turretSubsystem.moveToAngleCommand(0));
   }
 
   public Command getAutonomousCommand() {
     return new SequentialCommandGroup(
-      new InstantCommand(() -> m_turretSubsystem.setAngle(90)),
-      new WaitCommand(1.5),
-      new InstantCommand(() -> m_turretSubsystem.setAngle(-90)),
-      new WaitCommand(1.5),
-      new InstantCommand(() -> m_turretSubsystem.setAngle(0))
-    );
+        m_turretSubsystem.moveToAngleCommand(90),
+        new WaitCommand(3),
+        m_turretSubsystem.moveToAngleCommand(180),
+        new WaitCommand(3),
+        m_turretSubsystem.moveToAngleCommand(-90),
+        new WaitCommand(3),
+        m_turretSubsystem.moveToAngleCommand(-180),
+        new WaitCommand(3),
+        m_turretSubsystem.moveToAngleCommand(0));
   }
 }

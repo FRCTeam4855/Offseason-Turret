@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Turret Angle", Units.rotationsToDegrees(m_robotContainer.m_turretSubsystem.getPosition()/m_robotContainer.m_turretSubsystem.gearRatio));
+    SmartDashboard.putNumber("Turret Angle", Units.rotationsToDegrees(m_robotContainer.m_turretSubsystem.getPosition()));
   }
 
   @Override
