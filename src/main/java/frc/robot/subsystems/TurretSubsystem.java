@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 /**
  * Pivot subsystem using SparkMAX with NEO motor
@@ -44,7 +45,7 @@ public class TurretSubsystem extends SubsystemBase {
   //.05
   private final double kI = 0;
   private final double kD = 0;
-  private final double kS = 0;
+  private final double kS = 0.01;
   private final double kV = 0;
   private final double kA = 0;
   private final double kG = 0; // Unused for pivots
@@ -197,6 +198,7 @@ public class TurretSubsystem extends SubsystemBase {
   public double getVelocity() {
     return encoder.getVelocity();
   }
+  
 
   /**
    * Get the current applied voltage.
@@ -233,6 +235,10 @@ public class TurretSubsystem extends SubsystemBase {
    */
   public void setAngle(double angleDegrees) {
     setAngle(angleDegrees, 0);
+  }
+
+  public void resetEncoder() {
+    encoder.setPosition(0);
   }
 
   /**
@@ -322,7 +328,7 @@ public class TurretSubsystem extends SubsystemBase {
     })
         .until(() -> {
           double currentAngle = Units.radiansToDegrees(getPositionRadians());
-          return Math.abs(angleDegrees - currentAngle) < 1; // 1 degree tolerance
+          return Math.abs(angleDegrees - currentAngle) < 3; // 3 degree tolerance
         })
         .finallyDo(interrupted -> setVelocity(0));
   }
@@ -345,5 +351,5 @@ public class TurretSubsystem extends SubsystemBase {
   public Command moveAtVelocityCommand(double velocityDegPerSec) {
     return run(() -> setVelocity(velocityDegPerSec));
   }
-
+  
 }

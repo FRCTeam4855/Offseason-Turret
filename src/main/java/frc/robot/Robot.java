@@ -9,12 +9,17 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.TurretSubsystem;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+
+  public final static DigitalInput magnet = new DigitalInput(0); // Port 0
+
 
   public Robot() {
     m_robotContainer = new RobotContainer();
@@ -24,6 +29,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Turret Angle", Units.rotationsToDegrees(m_robotContainer.m_turretSubsystem.getPosition()));
+    SmartDashboard.putBoolean("Magnet Sensor", magnet.get());
+
+    if (magnet.get() == false) {
+      m_robotContainer.m_turretSubsystem.resetEncoder();
+    }
   }
 
   @Override
