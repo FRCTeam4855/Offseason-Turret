@@ -41,7 +41,7 @@ public class TurretSubsystem extends SubsystemBase {
   private final DCMotor dcMotor = DCMotor.getNEO(1);
   private final int canID = 17;
   public final double gearRatio = 6.25;
-  private final double kP = .05;
+  private final double kP = 0.05;
   //.05
   private final double kI = 0;
   private final double kD = 0;

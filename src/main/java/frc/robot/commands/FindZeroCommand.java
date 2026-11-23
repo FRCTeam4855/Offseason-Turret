@@ -1,11 +1,18 @@
 package frc.robot.commands;
-import frc.robot.Robot;
-import frc.robot.subsystems.TurretSubsystem;
 
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.TurretSubsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+
+import frc.robot.Constants.SensorConstants;
 
 public class FindZeroCommand extends Command {
   private final TurretSubsystem m_turretSubsystem;
+
+  private boolean magnet;
 
   public FindZeroCommand(TurretSubsystem turretSubsystem) {
     m_turretSubsystem = turretSubsystem;
@@ -15,27 +22,27 @@ public class FindZeroCommand extends Command {
   @Override
   public void initialize() {
     System.out.println("Finding Zero");
-    m_turretSubsystem.setVelocity(50);
+    m_turretSubsystem.setVelocity(20);
   }
 
   @Override
   public void execute() {
     // Keep moving until the limit switch is triggered
+    magnet = SensorConstants.magnet.get();
   }
 
   @Override
   public boolean isFinished() {
-    if (Robot.magnet.get() == false) {
-      m_turretSubsystem.setVelocity(0);
-      m_turretSubsystem.resetEncoder();
-      end(false);
-    }
-    return Robot.magnet.get() == true;
+    return !magnet;
   }
 
   @Override
   public void end(boolean interrupted) {
     m_turretSubsystem.setVelocity(0);
+    if (!interrupted) {
+      System.out.println("FOUND");
+      m_turretSubsystem.resetEncoder();
+    }
   }
-    
+
 }
