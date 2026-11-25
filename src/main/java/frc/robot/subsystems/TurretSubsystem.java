@@ -49,8 +49,8 @@ public class TurretSubsystem extends SubsystemBase {
   private final double kV = 0;
   private final double kA = 0;
   private final double kG = 0; // Unused for pivots
-  private final double maxVelocity = 586; // rad/s
-  private final double maxAcceleration = 195; // rad/s²
+  private final double maxVelocity = 93.8; // rad/s
+  private final double maxAcceleration = 1925; // rad/s²
   private final boolean brakeMode = true;
   private final boolean enableStatorLimit = true;
   private final int statorCurrentLimit = 40;
@@ -328,7 +328,7 @@ public class TurretSubsystem extends SubsystemBase {
     })
         .until(() -> {
           double currentAngle = Units.radiansToDegrees(getPositionRadians());
-          return Math.abs(angleDegrees - currentAngle) < 3; // 3 degree tolerance
+          return Math.abs(angleDegrees - currentAngle) < 2; // 2 degree tolerance
         })
         .finallyDo(interrupted -> setVelocity(0));
   }
