@@ -8,8 +8,8 @@ public class Constants {
     public static final int kOperatorControllerPort = 0;
   }
 
-  public static class SensorConstants{
-    public final static DigitalInput magnet = new DigitalInput(0);
-  }
+  // public static class SensorConstants{
+  //   public final static DigitalInput magnet = new DigitalInput(0);
+  // }
     
 }

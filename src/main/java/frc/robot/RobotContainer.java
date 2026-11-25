@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.SensorConstants;
 
 import static edu.wpi.first.units.Units.RPM;
 
@@ -48,7 +47,7 @@ public class RobotContainer {
     new JoystickButton(m_controller, 22).onTrue(m_shooterSubsystem.run(RPM.of(0)));
     new JoystickButton(m_controller, 19).onTrue(m_shooterSubsystem.run(RPM.of(2500)));
     new JoystickButton(m_controller, 20).onTrue(m_shooterSubsystem.run(RPM.of(1500)));
-    new JoystickButton(m_controller, 23).onTrue(new FindZeroCommand(m_turretSubsystem));
+    new JoystickButton(m_controller, 11).onTrue(new FindZeroCommand(m_turretSubsystem));
   }
 
   public Command getAutonomousCommand() {

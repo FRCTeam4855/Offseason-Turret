@@ -5,19 +5,22 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.SensorConstants;
 
 
 public class Robot extends TimedRobot {
+
+  public final DigitalInput magnetSensor = new DigitalInput(0);
+
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
 
-  private final boolean magnet = SensorConstants.magnet.get();
+  public static boolean magnet;
 
 
   public Robot() {
@@ -26,14 +29,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    SmartDashboard.putBoolean("Magnet Sensor", magnet);
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+
+    magnet = magnetSensor.get();
+
     SmartDashboard.putNumber("Turret Angle", Units.rotationsToDegrees(m_robotContainer.m_turretSubsystem.getPosition()));
-    SmartDashboard.getBoolean("Magnet Sensor", true);
+    SmartDashboard.putBoolean("Magnet Sensor", magnet);
 
     if (magnet == false) {
       m_robotContainer.m_turretSubsystem.resetEncoder();
