@@ -20,7 +20,7 @@ public class FindZeroCommand extends Command {
   @Override
   public void initialize() {
     System.out.println("Finding Zero");
-    m_turretSubsystem.moveAtVelocityCommand(20);
+    m_turretSubsystem.moveAtVelocityCommand(20).schedule();;
   }
 
   @Override
@@ -36,7 +36,7 @@ public class FindZeroCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    m_turretSubsystem.setVelocity(0);
+    m_turretSubsystem.moveAtVelocityCommand(0).schedule();;
     if (!interrupted) {
       System.out.println("FOUND");
       m_turretSubsystem.resetEncoder();

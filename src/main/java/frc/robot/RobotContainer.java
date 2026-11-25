@@ -37,7 +37,7 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    new JoystickButton(m_controller, 1).onTrue(m_turretSubsystem.moveToAngleCommand(90));
+    // new JoystickButton(m_controller, 1).onTrue(m_turretSubsystem.moveToAngleCommand(90));
     new JoystickButton(m_controller, 2).onTrue(m_turretSubsystem.moveToAngleCommand(180));
     new JoystickButton(m_controller, 3).onTrue(m_turretSubsystem.moveToAngleCommand(-90));
     new JoystickButton(m_controller, 4).onTrue(m_turretSubsystem.moveToAngleCommand(-180));
@@ -47,7 +47,7 @@ public class RobotContainer {
     new JoystickButton(m_controller, 22).onTrue(m_shooterSubsystem.run(RPM.of(0)));
     new JoystickButton(m_controller, 19).onTrue(m_shooterSubsystem.run(RPM.of(2500)));
     new JoystickButton(m_controller, 20).onTrue(m_shooterSubsystem.run(RPM.of(1500)));
-    new JoystickButton(m_controller, 11).onTrue(new FindZeroCommand(m_turretSubsystem));
+    new JoystickButton(m_controller, 1).onTrue(new FindZeroCommand(m_turretSubsystem));
   }
 
   public Command getAutonomousCommand() {
